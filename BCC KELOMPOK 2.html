@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daftar Buku - FEB UNSIKA</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap');
+    :root {
+      --color-bg: #fefcbf; /* Soft yellow background */
+      --color-text: #4b3c2a; /* Dark brown text color */
+      --color-headline: #3b2a1e; /* Darker brown for headlines */
+      --color-primary: #8b5a2b; /* Warm brown for primary elements */
+      --color-primary-hover: #a76d3a; /* Lighter brown for hover effects */
+      --card-radius: 0.75rem;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+      --transition-speed: 0.25s;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0; 
+      font-family: 'Outfit', sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--color-primary);
+      border-bottom: 1px solid #e5e7eb;
+      z-index: 10;
+      box-shadow: 0 1px 3px var(--card-shadow);
+    }
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #fff; /* White text for navigation */
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      user-select: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus {
+      color: var(--color-primary-hover);
+      outline: none;
+      transition: color var(--transition-speed);
+    }
+    main {
+      max-width: 1200px;
+      margin: 2rem auto 4rem;
+      padding: 0 1.5rem;
+      flex-grow: 1;
+    }
+    .hero {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--color-headline);
+      margin: 0 0 0.5rem;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--color-text);
+      margin: 0 0 1.5rem;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero button {
+      background: var(--color-primary);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background var(--transition-speed);
+    }
+    .hero button:hover,
+    .hero button:focus {
+      background: var(--color-primary-hover);
+      outline: none;
+    }
+    .form-section {
+      max-width: 600px;
+      margin: 0 auto 4rem;
+      padding: 2rem;
+      background: #e2d6a8; /* Light yellow-beige for form section */
+      border-radius: var(--card-radius);
+      box-shadow: 0 2px 6px var(--card-shadow);
+    }
+    .form-section h2 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--color-headline);
+      user-select: none;
+    }
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 1.5rem;
+    }
+    form label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-headline);
+      display: block;
+      margin-bottom: 0.25rem;
+      user-select: none;
+    }
+    form input, form select {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      font-size: 1rem;
+      border-radius: 0.4rem;
+      border: 1px solid #d1d5db;
+      color: var(--color-headline);
+      transition: border var(--transition-speed), box-shadow var(--transition-speed);
+    }
+    form input:focus, form select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.15);
+    }
+    form .full-width {
+      grid-column: 1 / -1;
+    }
+    form button {
+      grid-column: 1 / -1;
+      background: var(--color-primary);
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.75rem 0;
+      border-radius: var(--card-radius);
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background var(--transition-speed);
+    }
+    form button:hover,
+    form button:focus {
+      background: var(--color-primary-hover);
+      outline: none;
+    }
+    .books-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: #e2d6a8; /* Light yellow-beige for book cards */
+      border-radius: var(--card-radius);
+      box-shadow: 0 4px 8px var(--card-shadow);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow var(--transition-speed);
+    }
+    .card:hover,
+    .card:focus-within {
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      outline: none;
+    }
+    .card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-headline);
+      user-select: none;
+    }
+    .card p {
+      margin: 0.1rem 0;
+      font-size: 1rem;
+      color: var(--color-text);
+      flex-grow: 1;
+      user-select: none;
+    }
+    .card .category {
+      margin-top: 1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #4b3c2a; /* Dark brown for category */
+      user-select: none;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #4b3c2a; /* Dark brown for footer */
+      user-select: none;
+      border-top: 1px solid #e5e7eb;
+    }
+    @media (max-width: 720px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+      .books-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo" tabindex="0">FEB UNSIKA - Manajemen Buku</div>
+      <div class="nav-links" role="navigation" aria-label="Main navigation">
+        <a href="#" tabindex="0">Beranda</a>
+        <a href="#" tabindex="0">Daftar Buku</a>
+        <a href="#" tabindex="0">Tentang</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" aria-label="Hero Section">
+      <h1 tabindex="0">Daftar Buku FEB UNSIKA</h1>
+      <p tabindex="0">Tambahkan buku baru ke dalam daftar atau cari buku favorit Anda dengan mudah.</p>
+      <button type="button" onclick="document.getElementById('addBookForm').scrollIntoView({behavior:'smooth'});" aria-label="Tambah Buku">Tambah Buku</button>
+    </section>
+
+    <section class="form-section" aria-labelledby="formTitle">
+      <h2 id="formTitle">Form tambah buku</h2>
+      <form id="addBookForm" aria-describedby="formDesc" onsubmit="return false;">
+        <p id="formDesc" class="sr-only">Form untuk menambah buku ke daftar buku</p>
+        <label for="title">Judul Buku</label>
+        <input type="text" id="title" name="title" required aria-required="true" autocomplete="off" placeholder="Judul Buku" />
+
+        <label for="author">Penulis</label>
+        <input type="text" id="author" name="author" required aria-required="true" autocomplete="off" placeholder="Penulis Buku" />
+
+        <label for="year">Tahun Terbit</label>
+        <input type="number" id="year" name="year" min="1000" max="9999" required aria-required="true" placeholder="Tahun Terbit" />
+
+        <label for="category">Kategori Buku</label>
+        <select id="category" name="category" required aria-required="true">
+          <option value="" disabled selected>Pilih Kategori</option>
+          <option value="Fiksi">Fiksi</option>
+          <option value="Non-Fiksi">Non-Fiksi</option>
+          <option value="Biografi">Biografi</option>
+        </select>
+        <button type="submit" id="addBookButton" aria-label="Tambah Buku Sekarang">Tambah Buku</button>
+      </form>
+    </section>
+
+    <section aria-label="Daftar Buku">
+      <div class="books-list" id="booksList" role="list" aria-live="polite" aria-relevant="additions removals">
+        <!-- Hardcoded book entries including the two new requested books -->
+        <article class="card" role="listitem" tabindex="0">
+          <h3>MARKETING MANAGEMENT</h3>
+          <p>Penulis: PHILIP KOTLER & KEVIN LANE KELLER</p>
+          <p>Tahun Terbit: 2016</p>
+          <p class="category">Kategori: Non-Fiksi</p>
+        </article>
+        <article class="card" role="listitem" tabindex="0">
+          <h3>STRATEGIC COMPENSATION A HUMAN RESOURCE</h3>
+          <p>Penulis: JOSEPH J MARTOCCHIO</p>
+          <p>Tahun Terbit: 2015</p>
+          <p class="category">Kategori: Non-Fiksi</p>
+        </article>
+        <!-- Example other books already on the list -->
+      </div>
+    </section>
+  </main>
+  <footer>
+    &copy; 2024 FEB UNSIKA - Semua Hak Dilindungi
+  </footer>
+
+  <script>
+    const form = document.getElementById('addBookForm');
+    const booksList = document.getElementById('booksList');
+
+    function createBookCard(book) {
+      const article = document.createElement('article');
+      article.className = 'card';
+      article.setAttribute('role', 'listitem');
+      article.tabIndex = 0;
+
+      const title = document.createElement('h3');
+      title.textContent = book.title.toUpperCase();
+      article.appendChild(title);
+
+      const author = document.createElement('p');
+      author.textContent = 'Penulis: ' + book.author.toUpperCase();
+      article.appendChild(author);
+
+      const year = document.createElement('p');
+      year.textContent = 'Tahun Terbit: ' + book.year;
+      article.appendChild(year);
+
+      const category = document.createElement('p');
+      category.className = 'category';
+      category.textContent = 'Kategori: ' + book.category;
+      article.appendChild(category);
+
+      return article;
+    }
+
+    form.addEventListener('submit', () => {
+      const title = form.title.value.trim();
+      const author = form.author.value.trim();
+      const year = form.year.value.trim();
+      const category = form.category.value;
+
+      if (!title || !author || !year || !category) {
+        alert('Silakan lengkapi semua data buku.');
+        return false;
+      }
+      // Prevent adding duplicate titles - optional
+      const existingBooks = Array.from(booksList.querySelectorAll('article h3')).map(e => e.textContent.toLowerCase());
+      if (existingBooks.includes(title.toLowerCase())) {
+        alert('Buku dengan judul yang sama sudah ada dalam daftar.');
+        return false;
+      }
+
+      const newBook = { title, author, year, category };
+      const card = createBookCard(newBook);
+      booksList.appendChild(card);
+
+      form.reset();
+      form.title.focus();
+    });
+  </script>
+</body>
+</html>
